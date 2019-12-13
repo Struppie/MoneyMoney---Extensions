@@ -110,7 +110,7 @@ function RefreshAccount (account, since)
     local response = HTML(connection:get(url .. "/cockpit/produkt/portfolio/?vertragsnummer=" .. account.accountNumber))
 
     response:xpath("//div[@class='row dark-row-body portfolio-row']"):each(function(index, element)
-       
+
         local transaction = {
             name = element:xpath("div[2]/div[1]"):text(),
             securityNumber = element:xpath("div[2]/div[2]/div[2]"):text():gsub("WKN: ", ""),
@@ -130,3 +130,5 @@ function EndSession ()
 
     print("Logout successful.")
 end
+
+-- SIGNATURE: MCwCFFNA5b3KjluZOIdrfJDyVGMpgSm7AhQFKpysmxKU4zBL7eDnSvi3jtcfrQ==
