@@ -1,7 +1,7 @@
 ## MoneyMoney-Extension für fairr by Raisin (getestet mit fairrürup)
 
 ### Info
-Diese Extensions ermöglicht den automatisierten Download und Update der besparten Fonds und Wertpapiere über die Bank fairr by raisin (www.fairr.de) mit der App MoneyMoney (https://moneymoney-app.com/).
+Diese Extension ermöglicht den automatisierten Download und Update der besparten Fonds und Wertpapiere über die Bank fairr by raisin (www.fairr.de) mit der App MoneyMoney (https://moneymoney-app.com/).
 
 ### Installation
 1. Öffnen Sie in MoneyMoney das Menü "Hilfe" und klicken Sie auf "Zeige Datenbank im Finder".
