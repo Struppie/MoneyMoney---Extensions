@@ -28,9 +28,12 @@
 --
 -- Get balance for sparen.fairr.de/cockpit
 --
+-- Changelog:
+-- 17.04.2020   v1.01   Adapted webscraping to new website content (amounts did not load correctly)
+--
 
 WebBanking {
-    version     = 1.00,
+    version     = 1.01,
     country     = "de",
     url         = "https://sparen.fairr.de",
     services    = {"fairr - Cockpit"},
@@ -116,8 +119,14 @@ function RefreshAccount (account, since)
             securityNumber = element:xpath("div[2]/div[2]/div[2]"):text():gsub("WKN: ", ""),
             market = "fairr",
             currency = "EUR",
-            amount = tonumber((element:xpath("div[3]/div[1]"):text():gsub("%.", ""):gsub(",", "."):gsub("€", ""))),
+            amount = tonumber((element:xpath("div[3]/div[2]"):text():gsub("%.", ""):gsub(",", "."):gsub("€", ""))),
         }
+
+        print("index: " .. index)
+        print("name: " .. transaction.name)
+        print("securityName: " .. transaction.securityNumber)
+        print("amount: " .. transaction.amount)
+
         table.insert(transactions, transaction)
 
     end)
@@ -131,4 +140,4 @@ function EndSession ()
     print("Logout successful.")
 end
 
--- SIGNATURE: MCwCFFNA5b3KjluZOIdrfJDyVGMpgSm7AhQFKpysmxKU4zBL7eDnSvi3jtcfrQ==
+-- SIGNATURE: MC0CFGyNdnvh5goLez61QezQie/TeCk2AhUAgmSje4Hc/4mePE1hrFlk72ljWGY=
