@@ -30,12 +30,13 @@
 --
 -- Changelog:
 -- 17.04.2020   v1.01   Adapted webscraping to new website content (amounts did not load correctly)
+-- 11.11.2020   v1.10   Adapted webscraping to new website via this URL: https://fairr.raisin-pension.de/cockpit/
 --
 
 WebBanking {
-    version     = 1.01,
+    version     = 1.10,
     country     = "de",
-    url         = "https://sparen.fairr.de",
+    url         = "https://fairr.raisin-pension.de",
     services    = {"fairr - Cockpit"},
     description = string.format(MM.localizeText("Get balance for %s"), "fairr. by raisin")
 }
@@ -63,7 +64,7 @@ function ListAccounts (knownAccounts)
     local response = HTML(connection:get(url .. "/cockpit/meine-produkte/"))
 
     response:xpath("//div[@class='product-tile']"):each(function(index, element)
-        text = element:xpath("div[1]/div[2]/a[@class='btn btn-outline-light']"):attr("href")
+        text = element:xpath("div[1]/div[2]/a[@class='btn btn-lg btn-outline']"):attr("href")
         print("LA: " .. index .. " = " .. text)
         i1, i2 = string.find(text, "=")
 
@@ -112,14 +113,14 @@ function RefreshAccount (account, since)
     local transactions = {}
     local response = HTML(connection:get(url .. "/cockpit/produkt/portfolio/?vertragsnummer=" .. account.accountNumber))
 
-    response:xpath("//div[@class='row dark-row-body portfolio-row']"):each(function(index, element)
+    response:xpath("//div[@class='row light-row-body portfolio-row']"):each(function(index, element)
 
         local transaction = {
             name = element:xpath("div[2]/div[1]"):text(),
             securityNumber = element:xpath("div[2]/div[2]/div[2]"):text():gsub("WKN: ", ""),
             market = "fairr",
             currency = "EUR",
-            amount = tonumber((element:xpath("div[3]/div[2]"):text():gsub("%.", ""):gsub(",", "."):gsub("€", ""))),
+            amount = tonumber((element:xpath("div[3]/div[2]"):text():gsub("%.", ""):gsub(",", "."):gsub(" EUR", ""))),
         }
 
         print("index: " .. index)
@@ -140,4 +141,4 @@ function EndSession ()
     print("Logout successful.")
 end
 
--- SIGNATURE: MC0CFGyNdnvh5goLez61QezQie/TeCk2AhUAgmSje4Hc/4mePE1hrFlk72ljWGY=
+-- SIGNATURE: MC0CFBFtBOH5FDZyiE7OCeBxbdkBIjqRAhUAiNIeetXLU7dWdfVwcAGDgx1pL+s=
